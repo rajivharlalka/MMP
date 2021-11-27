@@ -17,13 +17,13 @@ var mailOptions = {
   from: env.GMAIL_EMAIL,
   to: env.SEND_TO,
   subject: "Scholarship Mail",
-  text: "INSPIRE Scholarship is out!!!!!!",
+  text: "MCM RESIDUAL Scholarship is out!!!!!! JAO APPLY KRO ABHI KE ABHI",
 };
 
 //Puppeteer Configuration
 
-(async () => {
-  const browser = await puppeteer.launch({slowMo: 75 });
+async function checkVal() {
+  const browser = await puppeteer.launch({ slowMo: 75 });
   const page = await browser.newPage();
 
   await page.goto("https://erp.iitkgp.ac.in/", { waitUntil: "networkidle2" });
@@ -68,14 +68,22 @@ var mailOptions = {
     .frames()
     .find((frame) => frame.name() === "myframe")
     .content();
-  if (frame.includes("INSPIRE")) {
+  if (
+    frame.includes("mcm") ||
+    frame.includes("MCM") ||
+    frame.includes("residual") ||
+    frame.includes("Residual")
+  ) {
     sendMail();
+    clearInterval(regularMail);
+  } else {
+    console.log("ni aaya");
   }
 
   await page.screenshot({ path: "example.png" });
 
   await browser.close();
-})();
+}
 
 //Send Mail Function to send Mails
 function sendMail() {
@@ -87,3 +95,5 @@ function sendMail() {
     }
   });
 }
+
+var regularMail = setInterval(checkVal, 30000);
