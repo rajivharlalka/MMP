@@ -23,7 +23,10 @@ var mailOptions = {
 //Puppeteer Configuration
 
 async function checkVal() {
-  const browser = await puppeteer.launch({ slowMo: 75 });
+  const browser = await puppeteer.launch({
+    slowMo: 75,
+    args: ["--no-sandbox"],
+  });
   const page = await browser.newPage();
 
   await page.goto("https://erp.iitkgp.ac.in/", { waitUntil: "networkidle2" });
@@ -68,19 +71,12 @@ async function checkVal() {
     .frames()
     .find((frame) => frame.name() === "myframe")
     .content();
-  if (
-    frame.includes("mcm") ||
-    frame.includes("MCM") ||
-    frame.includes("residual") ||
-    frame.includes("Residual")
-  ) {
+  if (frame.includes("INSPIRE")) {
     sendMail();
     clearInterval(regularMail);
   } else {
     console.log("ni aaya");
   }
-
- 
 
   await browser.close();
 }
