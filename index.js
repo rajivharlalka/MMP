@@ -75,7 +75,6 @@ async function checkVal() {
     .content();
   if (frame.includes("INSPIRE")) {
     sendMail();
-    clearInterval(regularMail);
   } else {
     console.log("ni aaya");
   }
@@ -94,4 +93,4 @@ function sendMail() {
   });
 }
 
-var regularMail = setInterval(checkVal, 30000);
+checkVal();
