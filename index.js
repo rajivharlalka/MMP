@@ -62,7 +62,16 @@ var mailOptions = {
   await page.$eval("#collapse16555 > div > div > a.text-default", (el) =>
     el.click()
   );
-    await page.waitForNetworkIdle()
+  await page.waitForNetworkIdle();
+
+  const frame = await page
+    .frames()
+    .find((frame) => frame.name() === "myframe")
+    .content();
+  // console.log(frame);
+  if (frame.includes("INSPIRE")) {
+    sendMail();
+  }
 
   await page.screenshot({ path: "example.png" });
 
@@ -79,4 +88,4 @@ function sendMail() {
     }
   });
 }
-// var regularMail=setInterval(sendMail, 5000);
+
