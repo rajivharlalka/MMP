@@ -80,7 +80,7 @@ async function checkVal() {
     console.log("ni aaya");
   }
 
-  await page.screenshot({ path: "example.png" });
+ 
 
   await browser.close();
 }
