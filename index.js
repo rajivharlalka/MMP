@@ -23,7 +23,7 @@ var mailOptions = {
 //Puppeteer Configuration
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: false, slowMo: 100 });
+  const browser = await puppeteer.launch({ headless: false, slowMo: 75 });
   const page = await browser.newPage();
 
   await page.goto("https://erp.iitkgp.ac.in/", { waitUntil: "networkidle2" });
@@ -62,7 +62,7 @@ var mailOptions = {
   await page.$eval("#collapse16555 > div > div > a.text-default", (el) =>
     el.click()
   );
-
+    await page.waitForNetworkIdle()
 
   await page.screenshot({ path: "example.png" });
 
