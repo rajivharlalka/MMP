@@ -16,14 +16,14 @@ let env = process.env;
 var mailOptions = {
   from: env.GMAIL_EMAIL,
   to: env.SEND_TO,
-  subject: "Sending Email using Node.js",
-  text: "That was easy!",
+  subject: "Scholarship Mail",
+  text: "INSPIRE Scholarship is out!!!!!!",
 };
 
 //Puppeteer Configuration
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: false, slowMo: 75 });
+  const browser = await puppeteer.launch({slowMo: 75 });
   const page = await browser.newPage();
 
   await page.goto("https://erp.iitkgp.ac.in/", { waitUntil: "networkidle2" });
@@ -68,7 +68,6 @@ var mailOptions = {
     .frames()
     .find((frame) => frame.name() === "myframe")
     .content();
-  // console.log(frame);
   if (frame.includes("INSPIRE")) {
     sendMail();
   }
@@ -88,4 +87,3 @@ function sendMail() {
     }
   });
 }
-
