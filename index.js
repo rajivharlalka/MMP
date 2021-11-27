@@ -23,6 +23,8 @@ var mailOptions = {
 //Puppeteer Configuration
 
 async function checkVal() {
+  console.log("Checking");
+
   const browser = await puppeteer.launch({
     slowMo: 75,
     args: ["--no-sandbox"],
