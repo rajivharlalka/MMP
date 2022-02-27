@@ -1,1 +1,1 @@
-web: node index.js
+heroku buildpacks:set heroku/python
